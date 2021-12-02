@@ -6,6 +6,10 @@
 	<title>Litreview</title>
 </head>
 <body>
+	{% if user.is_authenticated %}
+		<p><a href="{% url 'home' %}">Flux</a></p>
+		<p><a href="{% url 'logout' %}">Se déconnecter</a></p>
+	{% endif %}
 	{% block content %}{% endblock %}
 </body>
 </html>
