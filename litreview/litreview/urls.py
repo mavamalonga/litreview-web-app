@@ -11,6 +11,8 @@ import authentication.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', authentication.views.login_page, name='login'),
+    path('sign-up/', authentication.views.signup_page, name='sign-up'),
+    path('home/', application.views.home, name='home'),
 ]
 
 if settings.DEBUG:
