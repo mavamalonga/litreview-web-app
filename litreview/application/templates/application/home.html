@@ -2,10 +2,22 @@
 {% block content %}
 	<h1>Flux</h1>
 	<a href="{% url 'create-ticket' %}"><button>Demander une critique</button></a>
+	<a href="{% url 'create-review' %}"><button>Créer une critique
+	</button></a>
 	{% for ticket in tickets %}
 		<h2>{{ ticket.title }}</h2>
 		<img src="{{ ticket.photo.image.url }}"><br>
 		<em>{{ ticket.author }} : {{ ticket.date_created }}</em>
 		<p>{{ ticket.content }}</p>
+		{% for review in reviews %}
+			{% if review.ticket.id == ticket.id %}
+			<p>Critique by {{ review.user|upper }}<br>
+			Rating : {{ review.rating}} <br>
+			Time created : {{ review.time_created }}<br>
+			Headline : {{ review.headline }}<br>
+			Body : {{ review.body }}<br>
+			{% endif %}
+		{% endfor %}
+		<a href="{% url 'review' ticket.id %}"><button>Créer une critique</button></a>
 	{% endfor %}
 {% endblock content %}

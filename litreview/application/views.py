@@ -10,8 +10,10 @@ from application import models
 @login_required
 def home(request):
 	tickets = models.Ticket.objects.all()
+	reviews = models.Review.objects.all()
 	# id: toto, pwd: Se3cret!
-	return render(request, 'application/home.html', {'tickets': tickets})
+	context = {'tickets': tickets, 'reviews': reviews}
+	return render(request, 'application/home.html', context)
 
 @login_required
 def create_ticket(request):
@@ -33,4 +35,45 @@ def create_ticket(request):
 		'photo_form': photo_form}
 	return render(request, 'application/create_ticket.html', context=context)
 
+@login_required
+def review(request, ticket_id):
+	ticket = models.Ticket.objects.get(id=ticket_id)
+	form = forms.ReviewForm()
+	if request.method == 'POST':
+		form = forms.ReviewForm(request.POST)
+		if form.is_valid():
+			review = form.save(commit=False)
+			review.ticket = ticket
+			review.user = request.user
+			review.save()
+			return redirect('home')
+	context = {'form': form, 'ticket':ticket}
+	return render(request, 'application/review.html', context)
 
+@login_required
+def create_review(request):
+	ticket_form = forms.TicketForm()
+	photo_form = forms.PhotoForm()
+	review_form = forms.ReviewForm()
+	if request.method == 'POST':
+		ticket_form = forms.TicketForm(request.POST)
+		photo_form = forms.PhotoForm(request.POST, request.FILES)
+		review_form = forms.ReviewForm(request.POST)
+		if all([ticket_form.is_valid(), photo_form.is_valid(), review_form.is_valid()]):
+			# ticket and photo
+			photo = photo_form.save(commit=False)
+			photo.uploader = request.user
+			photo.save()
+			ticket = ticket_form.save(commit=False)
+			ticket.author = request.user
+			ticket.photo = photo
+			ticket.save()
+			# review
+			review = review_form.save(commit=False)
+			review.ticket = ticket
+			review.user = request.user
+			review.save()
+			return redirect('home')
+	context = {'ticket_form': ticket_form, 'photo_form': photo_form,
+		'review_form': review_form}
+	return render(request, 'application/create_review.html', context=context)

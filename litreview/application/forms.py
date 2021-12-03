@@ -11,3 +11,8 @@ class TicketForm(forms.ModelForm):
 	class Meta:
 		model = models.Ticket
 		fields = ['title', 'content']
+
+class ReviewForm(forms.ModelForm):
+	class Meta:
+		model = models.Review
+		fields = ['headline', 'rating', 'body']

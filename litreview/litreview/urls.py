@@ -10,6 +10,8 @@ import authentication.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('ticket/<int:ticket_id>/review/', application.views.review, name='review'),
+    path('create-review/', application.views.create_review, name='create-review'),
     path('create-ticket/', application.views.create_ticket, name='create-ticket'),
     path('logout/', authentication.views.logout_user, name='logout'),
     path('', authentication.views.login_page, name='login'),
