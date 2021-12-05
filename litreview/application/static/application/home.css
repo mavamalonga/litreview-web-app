@@ -1,0 +1,26 @@
+body {
+  width: 1020px;
+  height: 500px;
+}
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+h1 {
+  position: absolute;
+  left: 45%;
+}
+
+.container .btn-1 {
+  position: absolute;
+  top: 10%;
+  left: 45%;
+}
+
+.container .btn-2 {
+  position: absolute;
+  top: 10%;
+  left: 65%;
+}

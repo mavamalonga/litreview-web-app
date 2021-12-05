@@ -8,6 +8,8 @@
 <body>
 	{% if user.is_authenticated %}
 		<p><a href="{% url 'home' %}">Flux</a></p>
+		<p><a href="#">Posts</a></p>
+		<p><a href="#">Abonnements</a></p>
 		<p><a href="{% url 'logout' %}">Se déconnecter</a></p>
 	{% endif %}
 	{% block content %}{% endblock %}
