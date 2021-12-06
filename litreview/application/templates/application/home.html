@@ -9,20 +9,36 @@
 		<div class="posts">
 			{% for ticket in tickets %}
 				<div class="post">
-					<h2>{{ ticket.title }}</h2>
-					<img src="{{ ticket.photo.image.url }}"><br>
+					{% if ticket.author == request.user %}
+						{% if ticket.rating == None %}
+							<p class="author">Vous avez demandé une critique</p>
+						{% else %}
+							<p class="author">Vous avez publié une critique</p>
+						{% endif %}
+					{% else %}
+						{% if ticket.rating == None %}
+							<p class="author">{{ ticket.author }} a demandé une critique</p>
+						{% else %}
+							<p class="author">{{ ticket.author }} a publié une critique</p>
+						{% endif %}
+					{% endif %}
 					<p class="date-created">{{ ticket.date_created }}</p>
-					<p>{{ ticket.author }}</p>
-					<p>{{ ticket.content }}</p>
+					<h2>{{ ticket.title }}</h2>
+					<p class="content">{{ ticket.content }}</p>
+					<img src="{{ ticket.photo.image.url }}"><br>
+					<div class="reveiws">
 					{% for review in reviews %}
 						{% if review.ticket.id == ticket.id %}
-						<p>{{ review.user|upper }} a posté une reveiw<br>
-						Rating : {{ review.rating}} <br>
-						Time created : {{ review.time_created }}<br>
-						Headline : {{ review.headline }}<br>
-						Body : {{ review.body }}<br>
+							<div class="review">
+								<p>{{ review.user }} a posté une reveiw</p>
+								<p>Time created : {{ review.time_created }}</p>
+								<p>{{ review.rating}}</p>
+								<p>{{ review.headline }}</p>
+								<p>{{ review.body }}</p>
+							</div>
 						{% endif %}
 					{% endfor %}
+					</div>
 					<a href="{% url 'review' ticket.id %}"><button>Créer une critique</button></a>
 				</div>
 			{% endfor %}

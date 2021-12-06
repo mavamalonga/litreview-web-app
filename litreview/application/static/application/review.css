@@ -1,0 +1,83 @@
+h2 {
+  text-align: center;
+}
+.container-post {
+  border: solid;
+  margin-top: 1%;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.container-post .post {
+  border: solid;
+  margin-top: 3%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 3%;
+}
+
+.container-post .post .date-created {
+  margin-top: -5%;
+  margin-left: 70%;
+}
+
+.container-post .post .author {
+  margin-left: 5%;
+}
+
+.container-post .post .title {
+  margin-left: 5%;
+}
+
+.container-post .post .content {
+  margin-left: 5%;
+}
+
+.container-post .post img {
+  margin-left: 15%;
+  width: 200px;
+  height: 280px;
+}
+
+.container-form {
+  border-left: solid;
+  border-right: solid;
+  margin-top: -2%;
+  margin-right: 10%;
+  margin-left: 10%;
+  border-bottom: solid;
+}
+
+.container-form form {
+  position: relative;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.container-form form label::after{
+    content: "\a";
+    white-space: pre;
+}
+
+.container-form form label {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.contianer-form form p input {
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 900px;
+}
+
+.container-form form p textarea {
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 800px;
+}
+
+.container-form form button {
+  width: 100px;
+  height: 30px;
+  margin-bottom: 20px;
+  margin-left: 80%;
+}

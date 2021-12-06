@@ -42,9 +42,55 @@ h1 {
   margin: 10px;
 }
 
-.date-created {
+.container .posts .post .date-created {
   position: absolute;
-  color: red;
-  top: 5%;
+  top: 0;
   left: 70%;
 }
+
+.container .posts .post .author {
+  position: absolute;
+  top: 0;
+  left: 5%;
+}
+
+.container .posts .post h2 {
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
+.container .posts .post .content {
+  margin-left: 5%;
+}
+
+.container .posts .post img {
+  width: 300px;
+  height: 383px;
+  margin-left: 15%;
+}
+
+
+.container .posts .post a button {
+  width: 150px;
+  height: 30px;
+  margin-left: 70%;
+  margin-bottom: 5%;
+}
+
+/*reviews*/
+
+.container .posts .post .reveiws {
+  position: relative;
+  border: solid;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.container .posts .post .reveiws .reveiw {
+  position: absolute;
+  border: solid;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+
