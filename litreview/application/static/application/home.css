@@ -24,3 +24,24 @@ h1 {
   top: 10%;
   left: 65%;
 }
+
+.container .posts {
+  width: 70%;
+  position: absolute;
+  top: 20%;
+  left: 27%;
+}
+
+.container .posts .post {
+  width: 694px;
+  position: relative;
+  border: solid;
+  margin: 10px;
+}
+
+.date-created {
+  position: absolute;
+  color: red;
+  top: 5%;
+  left: 70%;
+}

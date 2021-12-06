@@ -4,13 +4,47 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Litreview</title>
+	<style type="text/css">
+		.header {
+			width: 1250px;
+			height: 50px;
+			position: relative;
+			border-top: solid;
+			border-bottom: solid;
+		}
+		.header h1 {
+			position: absolute;
+			top: -10px;
+			left: 42%;
+		}
+		.header nav {
+			position: absolute;
+			display: inline-flex;
+			top: 30%;
+			left: 70%;
+		}
+
+		.header nav p {
+			margin: 5px;
+		}
+
+		.header nav p a {
+			text-decoration: none;
+		}
+
+	</style>
 </head>
 <body>
 	{% if user.is_authenticated %}
-		<p><a href="{% url 'home' %}">Flux</a></p>
-		<p><a href="#">Posts</a></p>
-		<p><a href="#">Abonnements</a></p>
-		<p><a href="{% url 'logout' %}">Se déconnecter</a></p>
+		<div class="header">
+			<h1>LITReview</h1>
+			<nav>
+				<p><a href="{% url 'home' %}">Flux</a></p>
+				<p><a href="#">Posts</a></p>
+				<p><a href="#">Abonnements</a></p>
+				<p><a href="{% url 'logout' %}">Se déconnecter</a></p>
+			</nav>
+		</div>
 	{% endif %}
 	{% block content %}{% endblock %}
 </body>

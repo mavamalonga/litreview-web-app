@@ -11,11 +11,12 @@
 				<div class="post">
 					<h2>{{ ticket.title }}</h2>
 					<img src="{{ ticket.photo.image.url }}"><br>
-					<em>{{ ticket.author }} : {{ ticket.date_created }}</em>
+					<p class="date-created">{{ ticket.date_created }}</p>
+					<p>{{ ticket.author }}</p>
 					<p>{{ ticket.content }}</p>
 					{% for review in reviews %}
 						{% if review.ticket.id == ticket.id %}
-						<p>Critique by {{ review.user|upper }}<br>
+						<p>{{ review.user|upper }} a posté une reveiw<br>
 						Rating : {{ review.rating}} <br>
 						Time created : {{ review.time_created }}<br>
 						Headline : {{ review.headline }}<br>
