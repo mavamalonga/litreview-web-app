@@ -5,6 +5,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Litreview</title>
 	<style type="text/css">
+		.page-name {
+			margin-left: 50px;
+		}
 		.header {
 			width: 1250px;
 			height: 50px;
@@ -36,6 +39,7 @@
 </head>
 <body>
 	{% if user.is_authenticated %}
+		<p class="page-name">{{ page_name }}</p>
 		<div class="header">
 			<h1>LITReview</h1>
 			<nav>

@@ -12,7 +12,7 @@ def home(request):
 	tickets = models.Ticket.objects.all()
 	reviews = models.Review.objects.all()
 	# id: toto, pwd: Se3cret!
-	context = {'tickets': tickets, 'reviews': reviews}
+	context = {'tickets': tickets, 'reviews': reviews, 'page_name':'Flux'}
 	return render(request, 'application/home.html', context)
 
 @login_required
@@ -32,7 +32,7 @@ def create_ticket(request):
 			ticket.save()
 			return redirect('home')
 	context = {'ticket_form': ticket_form,
-		'photo_form': photo_form}
+		'photo_form': photo_form, 'page_name':'Créer un ticket'}
 	return render(request, 'application/create_ticket.html', context=context)
 
 @login_required
@@ -47,7 +47,7 @@ def review(request, ticket_id):
 			review.user = request.user
 			review.save()
 			return redirect('home')
-	context = {'form': form, 'ticket':ticket}
+	context = {'form': form, 'ticket':ticket, 'page_name':'Créer une critique'}
 	return render(request, 'application/review.html', context)
 
 @login_required
@@ -75,5 +75,5 @@ def create_review(request):
 			review.save()
 			return redirect('home')
 	context = {'ticket_form': ticket_form, 'photo_form': photo_form,
-		'review_form': review_form}
+		'review_form': review_form, 'page_name':'Créer une critique (pas en réponse à un ticket)'}
 	return render(request, 'application/create_review.html', context=context)
