@@ -13,6 +13,10 @@ h2 {
 	top: 18%;
 	left: 45%;
 }
+form label::after{
+    content: "\a";
+    white-space: pre;
+}
 
 form {
 	position: absolute;

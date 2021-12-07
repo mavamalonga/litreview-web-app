@@ -77,3 +77,30 @@ def create_review(request):
 	context = {'ticket_form': ticket_form, 'photo_form': photo_form,
 		'review_form': review_form, 'page_name':'Créer une critique (pas en réponse à un ticket)'}
 	return render(request, 'application/create_review.html', context=context)
+
+def posts(request):
+	posts = models.Ticket.objects.filter(author=request.user.id)
+	reviews = models.Review.objects.filter(user=request.user.id)
+	context = {'posts': posts, 'reviews': reviews}
+	return render(request, 'application/posts.html', context)
+
+def ticket_update(request, ticket_id):
+	ticket = models.Ticket.objects.get(id=ticket_id)
+	form = forms.TicketForm(instance=ticket)
+	if request.method == 'POST':
+		form = forms.TicketForm(request.POST, instance=ticket)
+		if form.is_valid():
+			ticket = form.save()
+			return redirect('posts')
+	context = {'form': form}
+	return render(request, 'application/ticket_update.html', context)
+
+def ticket_delete(request, ticket_id):
+	ticket = models.Ticket.objects.get(id=ticket_id)
+	if request.POST == 'POST':
+		ticket.delete()
+		return redirect('posts')
+	return render(request, 'application/ticket_delete.html')
+
+
+

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'application/posts.css' %}">
+	<div class="container">
+		<div class="posts">
+			{% for post in posts %}
+				<div class="post">
+					<p class="author">Vous avez demandé une critique</p>
+					<p class="date-created">{{ post.date_created }}</p>
+					<h2>{{ post.title }}</h2>
+					<p class="content">{{ post.content }}</p>
+					<img src="{{ post.photo.image.url }}"><br>
+					<a href="{% url 'ticket-update' post.id %}"><button>Modifier</button></a>
+					<a href="{% url 'ticket-delete' post.id %}"><button>Supprimer</button></a>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="reveiws">
+			{% for review in reviews %}
+				<div class="review">
+					<p>Vous avez posté une reveiw <br>
+					Time created : {{ review.time_created }}<br>
+					{{ review.rating}}<br>
+					{{ review.headline }}<br>
+					{{ review.body }}<br></p>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

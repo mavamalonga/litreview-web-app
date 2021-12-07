@@ -20,6 +20,10 @@ h2 {
 	top: 25%;
 	left: 45%;
 }
+form label::after{
+    content: "\a";
+    white-space: pre;
+}
 
 form {
 	position: absolute;
