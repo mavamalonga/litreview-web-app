@@ -16,3 +16,7 @@ class ReviewForm(forms.ModelForm):
 	class Meta:
 		model = models.Review
 		fields = ['headline', 'rating', 'body']
+
+class UserFollowsForm(forms.Form):
+		username = forms.CharField(max_length=100)
+			

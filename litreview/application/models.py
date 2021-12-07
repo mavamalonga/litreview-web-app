@@ -7,11 +7,10 @@ class UserFollows(models.Model):
 		related_name='following')
 	followed_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
 		related_name='followed_by')
-"""
+	
 	class Meta:
-		unique_together = ('user', 'followed__user',)
+		unique_together = ('user', 'followed_user',)
 
-"""
 class Photo(models.Model):
 	image = models.ImageField()
 	uploader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

@@ -6,6 +6,7 @@ from django.conf import settings
 
 from application import forms
 from application import models
+from authentication.models import User
 
 @login_required
 def home(request):
@@ -81,7 +82,7 @@ def create_review(request):
 def posts(request):
 	posts = models.Ticket.objects.filter(author=request.user.id)
 	reviews = models.Review.objects.filter(user=request.user.id)
-	context = {'posts': posts, 'reviews': reviews}
+	context = {'posts': posts, 'reviews': reviews, 'page_name': 'Posts'}
 	return render(request, 'application/posts.html', context)
 
 def ticket_update(request, ticket_id):
@@ -92,7 +93,7 @@ def ticket_update(request, ticket_id):
 		if form.is_valid():
 			ticket = form.save()
 			return redirect('posts')
-	context = {'form': form}
+	context = {'form': form, 'page_name':'Ticket update'}
 	return render(request, 'application/ticket_update.html', context)
 
 def ticket_delete(request, ticket_id):
@@ -100,7 +101,23 @@ def ticket_delete(request, ticket_id):
 	if request.POST == 'POST':
 		ticket.delete()
 		return redirect('posts')
-	return render(request, 'application/ticket_delete.html')
+	context = {'page_name':'Ticket delete'}
+	return render(request, 'application/ticket_delete.html', context)
+
+def follows(request):
+	form = forms.UserFollowsForm()
+	if request.method == 'POST':
+		form = forms.UserFollowsForm(request.POST)
+		if form.is_valid():
+			username = form.cleaned_data['username']
+			user = User.objects.get(id=request.user.id)
+			followed_user = User.objects.get(id=1)
+			if followed_user != None:
+				add_follower = models.UserFollows(user=user, followed_user=followed_user)
+				add_follower.save()
+			else:
+				return redirect ('follows')
+	return render(request, 'application/follows.html', context={'form': form})
 
 
 
