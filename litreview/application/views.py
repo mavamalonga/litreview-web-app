@@ -106,18 +106,27 @@ def ticket_delete(request, ticket_id):
 
 def follows(request):
 	form = forms.UserFollowsForm()
+	followers = models.UserFollows.objects.filter(followed_user=request.user)
+	follows = models.UserFollows.objects.filter(user=request.user)
 	if request.method == 'POST':
 		form = forms.UserFollowsForm(request.POST)
 		if form.is_valid():
 			username = form.cleaned_data['username']
 			user = User.objects.get(id=request.user.id)
-			followed_user = User.objects.get(id=1)
+			followed_user = User.objects.filter(username=username)[0]
 			if followed_user != None:
 				add_follower = models.UserFollows(user=user, followed_user=followed_user)
 				add_follower.save()
 			else:
 				return redirect ('follows')
-	return render(request, 'application/follows.html', context={'form': form})
+	return render(request, 'application/follows.html', context={'form': form, 'followers': followers,
+		'follows': follows})
+
+def unfollow(request, link_id):
+	link = models.UserFollows.objects.get(id=link_id)
+	link.delete()
+	return redirect('follows')
+
 
 
 

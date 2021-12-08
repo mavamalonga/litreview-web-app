@@ -5,4 +5,16 @@
 		{% csrf_token %}
 		<input type="submit" value="Follow">
 	</form>
+	<h3>Abonnements</h3>
+	<th>
+		{% for link in follows %}
+			<tr>{{ link.followed_user }}<a href="{% url 'unfollow' link.id %}"><input type="submit" value="Désabonner"></a></tr>
+		{% endfor %}
+	</th>
+	<h3>Abonnés</h3>
+	<th>
+		{% for link in followers %}	
+			<tr>{{ link.user }}</tr>
+		{% endfor %}
+	</th>
 {% endblock %}
