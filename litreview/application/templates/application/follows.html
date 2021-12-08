@@ -1,20 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
-	<form method="post">
-		{{ form.as_p }}
-		{% csrf_token %}
-		<input type="submit" value="Follow">
-	</form>
-	<h3>Abonnements</h3>
-	<th>
-		{% for link in follows %}
-			<tr>{{ link.followed_user }}<a href="{% url 'unfollow' link.id %}"><input type="submit" value="Désabonner"></a></tr>
-		{% endfor %}
-	</th>
-	<h3>Abonnés</h3>
-	<th>
-		{% for link in followers %}	
-			<tr>{{ link.user }}</tr>
-		{% endfor %}
-	</th>
+{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'application/follows.css' %}">
+	<div class="container">
+		<h3>Suivre d'autres utilisateurs</h3>
+		<form method="post">
+			{{ form.as_p }}
+			{% csrf_token %}
+			<button type="submit" value="Follow">Envoyer</button>
+		</form>
+		<h3>Abonnements</h3>
+		{% if follows|length != 0 %}
+			<table>
+				{% for link in follows %}
+					<tr>
+						<td>{{ link.followed_user }}<a href="{% url 'unfollow' link.id %}"><input type="submit" value="Désabonner"></a></td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% else %}
+			<p>Vous n'avez pas encore d'abonnements</p>
+		{% endif %}
+		<h3>Abonnés</h3>
+		{% if followers != 0 %}
+		<table>
+			{% for link in followers %}	
+				<tr>
+					<td>{{ link.user }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+		{% else %}
+			<p>Vous n'aves pas encore d'abonnés</p>
+		{% endif %}
+	</div>
 {% endblock %}

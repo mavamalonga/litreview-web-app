@@ -120,7 +120,7 @@ def follows(request):
 			else:
 				return redirect ('follows')
 	return render(request, 'application/follows.html', context={'form': form, 'followers': followers,
-		'follows': follows})
+		'follows': follows, 'page_name': 'Abonnements'})
 
 def unfollow(request, link_id):
 	link = models.UserFollows.objects.get(id=link_id)
