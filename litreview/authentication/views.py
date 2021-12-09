@@ -12,7 +12,7 @@ def signup_page(request):
 			login(request, user)
 			# id: toto, pwd: Se3cret!
 			return redirect(settings.LOGIN_REDIRECT_URL)
-	return render(request, 'authentication/signup.html', {'form': form})
+	return render(request, 'authentication/signup.html', {'form': form, 'page_name':None})
 
 def login_page(request):
 	form = forms.LoginForm()
@@ -30,7 +30,7 @@ def login_page(request):
 			else:
 				message = 'Identifiants invalides.'
 	return render(request, 'authentication/login.html', context={'form': form, 
-		'message': message})
+		'message': message, 'page_name':None})
 
 def logout_user(request):
 	logout(request)

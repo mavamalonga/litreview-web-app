@@ -15,15 +15,22 @@ def home(request):
 	users_follows = models.UserFollows.objects.filter(user=request.user)
 	for user in users_follows:
 		users.append(user.followed_user)
-
 	users.append(request.user)
+
 	"""we collect all the tickets of the users to whom we are subscribed"""
 	tickets = []
 	for user in users:
-		tickets.append(models.Ticket.objects.filter(author=user))
+		tickets_by_user = models.Ticket.objects.filter(author=user)
+		for ticket in tickets_by_user:
+			tickets.append(ticket)
 
-	tickets = models.Ticket.objects.all()
-	reviews = models.Review.objects.all()
+	"""we collect all the reveiws of the users to whom we are subscribed"""
+	reviews = []
+	for user in users:
+		review_by_user = models.Review.objects.filter(user=user)
+		for review in review_by_user:
+			reviews.append(review)
+
 	# id: toto, pwd: Se3cret!
 	context = {'tickets': tickets, 'reviews': reviews, 'page_name':'Flux'}
 	return render(request, 'application/home.html', context)

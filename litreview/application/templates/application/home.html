@@ -6,41 +6,30 @@
 		<a href="{% url 'create-ticket' %}" class="btn-1"><button>Demander une critique</button></a>
 		<a href="{% url 'create-review' %}" class="btn-2"><button>Créer une critique
 		</button></a>
-		<div class="posts">
-			{% for ticket in tickets %}
+		{% for ticket in tickets %}
+			{% if ticket != None %}
 				<div class="post">
 					{% if ticket.author == request.user %}
-						{% if ticket.rating == None %}
-							<p class="author">Vous avez demandé une critique</p>
-						{% else %}
-							<p class="author">Vous avez publié une critique</p>
-						{% endif %}
+						<p class="author">Vous avez publié</p>
 					{% else %}
-						{% if ticket.rating == None %}
-							<p class="author">{{ ticket.author }} a demandé une critique</p>
-						{% else %}
-							<p class="author">{{ ticket.author }} a publié une critique</p>
-						{% endif %}
+						<p class="author">{{ ticket.author }} a publié</p>
 					{% endif %}
 					<p class="date-created">{{ ticket.date_created }}</p>
 					<h2>{{ ticket.title }}</h2>
 					<p class="content">{{ ticket.content }}</p>
 					<img src="{{ ticket.photo.image.url }}"><br>
-					<div class="reveiws">
-					{% for review in reviews %}
-						{% if review.ticket.id == ticket.id %}
-							<div class="review">
-								<p>{{ review.user }} a posté une reveiw</p>
-								<p>Time created : {{ review.time_created }}</p>
-								<p>{{ review.rating}}</p>
-								<p>{{ review.headline }}</p>
-								<p>{{ review.body }}</p>
-							</div>
-						{% endif %}
-					{% endfor %}
-					</div>
 					<a href="{% url 'review' ticket.id %}"><button>Créer une critique</button></a>
 				</div>
+			{% endif %}
+			{% for review in reviews %}
+				{% if review.ticket.id == ticket.id %}
+					<div class="review">
+						<p>{{ review.user }} a posté une reveiw</p>
+						<p class="time-created">{{ review.time_created }}</p>
+						<p>{{ review.rating}}<br>{{ review.headline }}<br>{{ review.body }}</p>
+					</div>
+				{% endif %}
 			{% endfor %}
-		</div>
+		{% endfor %}
+	</div>
 {% endblock content %}
