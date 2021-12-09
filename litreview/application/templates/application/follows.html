@@ -9,6 +9,9 @@
 			{% csrf_token %}
 			<button type="submit" value="Follow">Envoyer</button>
 		</form>
+		{% if error != None %}
+			<p class="error">{{ error }}</p>
+		{% endif %}
 		<h3>Abonnements</h3>
 		{% if follows|length != 0 %}
 			<table>

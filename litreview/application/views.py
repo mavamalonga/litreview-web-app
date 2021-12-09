@@ -10,6 +10,18 @@ from authentication.models import User
 
 @login_required
 def home(request):
+	"""We collect all the users to whom the user is subscribed"""
+	users = []
+	users_follows = models.UserFollows.objects.filter(user=request.user)
+	for user in users_follows:
+		users.append(user.followed_user)
+
+	users.append(request.user)
+	"""we collect all the tickets of the users to whom we are subscribed"""
+	tickets = []
+	for user in users:
+		tickets.append(models.Ticket.objects.filter(author=user))
+
 	tickets = models.Ticket.objects.all()
 	reviews = models.Review.objects.all()
 	# id: toto, pwd: Se3cret!
@@ -79,12 +91,14 @@ def create_review(request):
 		'review_form': review_form, 'page_name':'Créer une critique (pas en réponse à un ticket)'}
 	return render(request, 'application/create_review.html', context=context)
 
+@login_required
 def posts(request):
 	posts = models.Ticket.objects.filter(author=request.user.id)
 	reviews = models.Review.objects.filter(user=request.user.id)
 	context = {'posts': posts, 'reviews': reviews, 'page_name': 'Posts'}
 	return render(request, 'application/posts.html', context)
 
+@login_required
 def ticket_update(request, ticket_id):
 	ticket = models.Ticket.objects.get(id=ticket_id)
 	form = forms.TicketForm(instance=ticket)
@@ -96,6 +110,7 @@ def ticket_update(request, ticket_id):
 	context = {'form': form, 'page_name':'Ticket update'}
 	return render(request, 'application/ticket_update.html', context)
 
+@login_required
 def ticket_delete(request, ticket_id):
 	ticket = models.Ticket.objects.get(id=ticket_id)
 	if request.POST == 'POST':
@@ -104,24 +119,31 @@ def ticket_delete(request, ticket_id):
 	context = {'page_name':'Ticket delete'}
 	return render(request, 'application/ticket_delete.html', context)
 
+@login_required
 def follows(request):
 	form = forms.UserFollowsForm()
 	followers = models.UserFollows.objects.filter(followed_user=request.user)
 	follows = models.UserFollows.objects.filter(user=request.user)
+	error = None
 	if request.method == 'POST':
 		form = forms.UserFollowsForm(request.POST)
 		if form.is_valid():
 			username = form.cleaned_data['username']
-			user = User.objects.get(id=request.user.id)
-			followed_user = User.objects.filter(username=username)[0]
-			if followed_user != None:
-				add_follower = models.UserFollows(user=user, followed_user=followed_user)
-				add_follower.save()
+			if username != f'{request.user}':
+				user = User.objects.get(id=request.user.id)
+				followed_user = User.objects.filter(username=username)[0]
+				if followed_user != None:
+					add_follower = models.UserFollows(user=user, followed_user=followed_user)
+					add_follower.save()
+				else:
+					return redirect ('follows')
 			else:
-				return redirect ('follows')
-	return render(request, 'application/follows.html', context={'form': form, 'followers': followers,
-		'follows': follows, 'page_name': 'Abonnements'})
+				error = 'Désolé vous ne pouvez pas vous auto-abonné'
+	context = {'form': form, 'followers': followers,
+		'follows': follows, 'page_name': 'Abonnements', 'error': error}
+	return render(request, 'application/follows.html', context=context)
 
+@login_required
 def unfollow(request, link_id):
 	link = models.UserFollows.objects.get(id=link_id)
 	link.delete()

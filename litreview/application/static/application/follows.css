@@ -12,6 +12,10 @@
   position: relative;
 }
 
+.container p.error {
+  color: red;
+}
+
 .container form input {
   width: 500px;
 }
