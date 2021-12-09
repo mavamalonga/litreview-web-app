@@ -3,29 +3,43 @@
 {% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'application/posts.css' %}">
 	<div class="container">
-		<div class="posts">
-			{% for post in posts %}
+		{% for ticket in tickets %}
+			{% if ticket != None %}
 				<div class="post">
-					<p class="author">Vous avez demandé une critique</p>
-					<p class="date-created">{{ post.date_created }}</p>
-					<h2>{{ post.title }}</h2>
-					<p class="content">{{ post.content }}</p>
-					<img src="{{ post.photo.image.url }}"><br>
-					<a href="{% url 'ticket-update' post.id %}"><button>Modifier</button></a>
-					<a href="{% url 'ticket-delete' post.id %}"><button>Supprimer</button></a>
+					{% if ticket.author == request.user %}
+						<p class="author">Vous avez publié un post</p>
+					{% else %}
+						<p class="author">{{ ticket.author }} a publié</p>
+					{% endif %}
+					<p class="date-created">{{ ticket.date_created }}</p>
+					<div class="content">
+						<h2>{{ ticket.title }}</h2>
+						<p>{{ ticket.content }}</p>
+						<img src="{{ ticket.photo.image.url }}">
+					</div>
+					<div class="button">
+						<a href="{% url 'ticket-update' ticket.id %}" class="update"><button>Modifier</button></a>
+						<a href="{% url 'ticket-delete' ticket.id %}" class="delete"><button>Supprimer</button></a>
+					</div>
 				</div>
-			{% endfor %}
-		</div>
-		<div class="reveiws">
+			{% endif %}
 			{% for review in reviews %}
-				<div class="review">
-					<p>Vous avez posté une reveiw <br>
-					Time created : {{ review.time_created }}<br>
-					{{ review.rating}}<br>
-					{{ review.headline }}<br>
-					{{ review.body }}<br></p>
-				</div>
+				{% if review.ticket.id == ticket.id %}
+					<div class="review">
+						{% if review.user == request.user %}
+							<p class="author">Vous avez posté une reveiw</p>
+						{% else %}
+							<p class="author">{{ review.user }} a posté une review</p>
+						{% endif %}
+						<p class="time-created">{{ review.time_created }}</p>
+						<p class="content">Note : {{ review.rating}}/5<br>{{ review.headline }}<br>{{ review.body }}</p>
+						<div class="button">
+							<a href="{% url 'ticket-update' ticket.id %}"><button>Modifier</button></a>
+							<a href="{% url 'ticket-delete' ticket.id %}"><button>Supprimer</button></a>
+						</div>
+					</div>
+				{% endif %}
 			{% endfor %}
-		</div>
+		{% endfor %}
 	</div>
 {% endblock %}

@@ -10,7 +10,7 @@
 			{% if ticket != None %}
 				<div class="post">
 					{% if ticket.author == request.user %}
-						<p class="author">Vous avez publié</p>
+						<p class="author">Vous avez publié un post</p>
 					{% else %}
 						<p class="author">{{ ticket.author }} a publié</p>
 					{% endif %}
@@ -29,10 +29,10 @@
 						{% if review.user == request.user %}
 							<p class="author">Vous avez posté une reveiw</p>
 						{% else %}
-							<p class="author">{{ review.user }} a posté une reveiw</p>
+							<p class="author">{{ review.user }} a posté une review</p>
 						{% endif %}
 						<p class="time-created">{{ review.time_created }}</p>
-						<p class="content">{{ review.rating}}<br>{{ review.headline }}<br>{{ review.body }}</p>
+						<p class="content">Note : {{ review.rating}}/5<br>{{ review.headline }}<br>{{ review.body }}</p>
 					</div>
 				{% endif %}
 			{% endfor %}

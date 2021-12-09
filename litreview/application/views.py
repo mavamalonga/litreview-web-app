@@ -20,7 +20,7 @@ def home(request):
 	"""we collect all the tickets of the users to whom we are subscribed"""
 	tickets = []
 	for user in users:
-		tickets_by_user = models.Ticket.objects.filter(author=user)
+		tickets_by_user = models.Ticket.objects.filter(author=user).order_by('-date_created')
 		for ticket in tickets_by_user:
 			tickets.append(ticket)
 
@@ -100,9 +100,9 @@ def create_review(request):
 
 @login_required
 def posts(request):
-	posts = models.Ticket.objects.filter(author=request.user.id)
+	tickets = models.Ticket.objects.filter(author=request.user.id).order_by('-date_created')
 	reviews = models.Review.objects.filter(user=request.user.id)
-	context = {'posts': posts, 'reviews': reviews, 'page_name': 'Posts'}
+	context = {'tickets': tickets, 'reviews': reviews, 'page_name': 'Posts'}
 	return render(request, 'application/posts.html', context)
 
 @login_required
