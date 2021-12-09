@@ -15,18 +15,24 @@
 						<p class="author">{{ ticket.author }} a publié</p>
 					{% endif %}
 					<p class="date-created">{{ ticket.date_created }}</p>
-					<h2>{{ ticket.title }}</h2>
-					<p class="content">{{ ticket.content }}</p>
-					<img src="{{ ticket.photo.image.url }}"><br>
+					<div class="content">
+						<h2>{{ ticket.title }}</h2>
+						<p>{{ ticket.content }}</p>
+						<img src="{{ ticket.photo.image.url }}">
+					</div>
 					<a href="{% url 'review' ticket.id %}"><button>Créer une critique</button></a>
 				</div>
 			{% endif %}
 			{% for review in reviews %}
 				{% if review.ticket.id == ticket.id %}
 					<div class="review">
-						<p>{{ review.user }} a posté une reveiw</p>
+						{% if review.user == request.user %}
+							<p class="author">Vous avez posté une reveiw</p>
+						{% else %}
+							<p class="author">{{ review.user }} a posté une reveiw</p>
+						{% endif %}
 						<p class="time-created">{{ review.time_created }}</p>
-						<p>{{ review.rating}}<br>{{ review.headline }}<br>{{ review.body }}</p>
+						<p class="content">{{ review.rating}}<br>{{ review.headline }}<br>{{ review.body }}</p>
 					</div>
 				{% endif %}
 			{% endfor %}
