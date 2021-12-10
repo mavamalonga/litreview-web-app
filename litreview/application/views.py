@@ -108,31 +108,34 @@ def posts(request):
 @login_required
 def ticket_update(request, ticket_id):
 	ticket = models.Ticket.objects.get(id=ticket_id)
-	form = forms.TicketForm(instance=ticket)
+	ticket_form = forms.TicketForm(instance=ticket)
+	photo_form = forms.PhotoForm(instance=ticket.photo)
 	if request.method == 'POST':
-		form = forms.TicketForm(request.POST, instance=ticket)
-		if form.is_valid():
-			ticket = form.save()
+		ticket_form = forms.TicketForm(request.POST, instance=ticket)
+		photo_form = forms.PhotoForm(request.POST, request.FILES, instance=ticket.photo)
+		if all([ticket_form.is_valid(), photo_form.is_valid()]):
+			photo = photo_form.save(commit=False)
+			photo.uploader = request.user
+			photo.save()
+			ticket = ticket_form.save(commit=False)
+			ticket.author = request.user
+			ticket.photo = photo
+			ticket.save()
 			return redirect('posts')
-	context = {'form': form, 'page_name':'Ticket update'}
+	context = {'ticket_form': ticket_form, 'photo_form':photo_form,
+		'page_name':'Ticket update'}
 	return render(request, 'application/ticket_update.html', context)
 
 @login_required
 def ticket_delete(request, ticket_id):
 	ticket = models.Ticket.objects.get(id=ticket_id)
-	if request.POST == 'POST':
-		ticket.delete()
-		return redirect('posts')
-	context = {'page_name':'Ticket delete'}
-	return render(request, 'application/ticket_delete.html', context)
+	ticket.delete()
+	return redirect('posts')
 
 def review_delete(request, review_id):
 	review = models.Review.objects.get(id=review_id)
-	if request.POST == 'POST':
-		review.delete()
-		return redirect('posts')
-	context = {'page_name':'Review delete'}
-	return render(request, 'application/review_delete.html', context)
+	review.delete()
+	return redirect('posts')
 
 @login_required
 def follows(request):

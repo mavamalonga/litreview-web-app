@@ -21,7 +21,7 @@ body {
   position: absolute;
   display: flex;
   flex-direction: column;  top: 50%;
-  left: 47%;
+  left: 65%;
 }
 
 .container .post .button a button, .container .review a button {
@@ -39,6 +39,7 @@ body {
 
 .container .review .content {
   margin-left: 10%;
+  width: 300px;
 }
 
 .container .post .content img {
