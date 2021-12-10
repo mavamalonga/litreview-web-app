@@ -27,7 +27,7 @@ def home(request):
 	"""we collect all the reveiws of the users to whom we are subscribed"""
 	reviews = []
 	for user in users:
-		review_by_user = models.Review.objects.filter(user=user)
+		review_by_user = models.Review.objects.filter(user=user).order_by('-time_created')
 		for review in review_by_user:
 			reviews.append(review)
 
@@ -125,6 +125,14 @@ def ticket_delete(request, ticket_id):
 		return redirect('posts')
 	context = {'page_name':'Ticket delete'}
 	return render(request, 'application/ticket_delete.html', context)
+
+def review_delete(request, review_id):
+	review = models.Review.objects.get(id=review_id)
+	if request.POST == 'POST':
+		review.delete()
+		return redirect('posts')
+	context = {'page_name':'Review delete'}
+	return render(request, 'application/review_delete.html', context)
 
 @login_required
 def follows(request):

@@ -10,6 +10,7 @@ import authentication.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('review/<int:review_id>/delete/', application.views.review_delete, name='review-delete'),
     path('unfollow/<int:link_id>/', application.views.unfollow, name='unfollow'),
     path('follows/', application.views.follows, name='follows'),
     path('ticket/<int:ticket_id>/delete/', application.views.ticket_delete, name='ticket-delete'),

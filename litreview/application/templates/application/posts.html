@@ -34,8 +34,7 @@
 						<p class="time-created">{{ review.time_created }}</p>
 						<p class="content">Note : {{ review.rating}}/5<br>{{ review.headline }}<br>{{ review.body }}</p>
 						<div class="button">
-							<a href="{% url 'ticket-update' ticket.id %}"><button>Modifier</button></a>
-							<a href="{% url 'ticket-delete' ticket.id %}"><button>Supprimer</button></a>
+							<a href="{% url 'review-delete' review.id %}"><button>Supprimer</button></a>
 						</div>
 					</div>
 				{% endif %}
