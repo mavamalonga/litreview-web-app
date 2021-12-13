@@ -3,21 +3,27 @@
 {% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'application/review.css' %}">
 	<h2>Créer une critique</h2>
-	<div class="container-post">
+	<div class="container">
 		<p>Vous êtes en train de poster en réponse à</p>
 		<div class="post">
-			<p class="author">{{ ticket.author }}</p>
+			{% if ticket.author == request.user %}
+				<p class="author">Vous avez publié un post</p>
+			{% else %}
+				<p class="author">{{ ticket.author }} a publié</p>
+			{% endif %}
 			<p class="date-created">{{ ticket.date_created }}</p>
-			<p class="title">{{ ticket.title }}</p>
-			<p class="content">{{ ticket.content }}</p>
-			<img src="{{ ticket.photo.image.url }}">
+			<div class="content">
+				<h2>{{ ticket.title }}</h2>
+				<p>{{ ticket.content }}</p>
+				<img src="{{ ticket.photo.image.url }}">
+			</div>
 		</div>
-	</div>
-	<div class="container-form">
-		<form method="post" enctype="multipart/form-data">
-			{{ form.as_p }}
-			{% csrf_token %}
-			<button type="submit">Publier</button>
-		</form>
+		<div class="review">
+			<form method="post" enctype="multipart/form-data">
+				{{ form.as_p }}
+				{% csrf_token %}
+				<button type="submit">Publier</button>
+			</form>
+		</div>
 	</div>
 {% endblock %}

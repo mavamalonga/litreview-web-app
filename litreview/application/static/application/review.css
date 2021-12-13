@@ -1,83 +1,62 @@
-h2 {
-  text-align: center;
+body {
+  width: 1020px;
 }
-.container-post {
+
+.container {
   border: solid;
+  margin-left: 30%;
+  width: 600px;
+}
+
+.container .post, .container .review {
+  border: solid;
+  width: 550px;
+  margin-left: 4%;
   margin-top: 1%;
-  margin-right: 10%;
+  margin-bottom: 2%;
+}
+
+.container .post p.author, .container .post .content {
   margin-left: 10%;
 }
 
-.container-post .post {
-  border: solid;
-  margin-top: 3%;
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-bottom: 3%;
-}
-
-.container-post .post .date-created {
-  margin-top: -5%;
-  margin-left: 70%;
-}
-
-.container-post .post .author {
-  margin-left: 5%;
-}
-
-.container-post .post .title {
-  margin-left: 5%;
-}
-
-.container-post .post .content {
-  margin-left: 5%;
-}
-
-.container-post .post img {
-  margin-left: 15%;
-  width: 200px;
-  height: 280px;
-}
-
-.container-form {
-  border-left: solid;
-  border-right: solid;
-  margin-top: -2%;
-  margin-right: 10%;
-  margin-left: 10%;
-  border-bottom: solid;
-}
-
-.container-form form {
+.container .post, .container .review {
   position: relative;
-  margin-left: 10%;
-  margin-right: 10%;
 }
 
-.container-form form label::after{
+.container .post p.date-created{
+  float: right;
+  margin-top: -5%;
+  margin-right: 10%;
+  margin-bottom: 10%;
+}
+
+.container .post .content img {
+  width: 200px;
+  height: 285px;
+}
+
+.container .review form {
+  margin-left: 10%;
+  width: 500px;
+}
+
+.container .review form label::after{
     content: "\a";
     white-space: pre;
 }
 
-.container-form form label {
-  margin-left: 20px;
-  margin-right: 20px;
-}
-.contianer-form form p input {
-  margin-left: 20px;
-  margin-right: 20px;
-  width: 900px;
+.container .review form p input {
+  width: 420px;
 }
 
-.container-form form p textarea {
-  margin-left: 20px;
-  margin-right: 20px;
-  width: 800px;
+.container .review form p textarea {
+  width: 420px;
 }
 
-.container-form form button {
+.container .review form button {
+  margin-left: 65%;
+  margin-bottom: 2%;
   width: 100px;
   height: 30px;
-  margin-bottom: 20px;
-  margin-left: 80%;
 }
