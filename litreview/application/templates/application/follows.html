@@ -25,7 +25,7 @@
 			<p>Vous n'avez pas encore d'abonnements</p>
 		{% endif %}
 		<h3>Abonnés</h3>
-		{% if followers != 0 %}
+		{% if followers == None %}
 		<table>
 			{% for link in followers %}	
 				<tr>

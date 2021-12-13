@@ -35,3 +35,6 @@ class Review(models.Model):
 	body = models.TextField(max_length=8192, blank=True)
 	time_created = models.DateTimeField(auto_now_add=True)
 
+	def __str__(self):
+		return self.headline
+

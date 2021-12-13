@@ -20,9 +20,12 @@ def home(request):
 	"""we collect all the tickets of the users to whom we are subscribed"""
 	tickets = []
 	for user in users:
-		tickets_by_user = models.Ticket.objects.filter(author=user).order_by('-date_created')
+		tickets_by_user = models.Ticket.objects.filter(author=user)
 		for ticket in tickets_by_user:
 			tickets.append(ticket)
+
+	"""sorted tickets by time published"""
+	tickets = sorted(tickets, key=lambda k: k.date_created, reverse=True)
 
 	"""we collect all the reveiws of the users to whom we are subscribed"""
 	reviews = []
@@ -30,6 +33,9 @@ def home(request):
 		review_by_user = models.Review.objects.filter(user=user).order_by('-time_created')
 		for review in review_by_user:
 			reviews.append(review)
+
+	"""sorted reviews by time published"""
+	reviews = sorted(reviews, key=lambda k: k.time_created, reverse=True)
 
 	# id: toto, pwd: Se3cret!
 	context = {'tickets': tickets, 'reviews': reviews, 'page_name':'Flux'}
@@ -100,8 +106,33 @@ def create_review(request):
 
 @login_required
 def posts(request):
-	tickets = models.Ticket.objects.filter(author=request.user.id).order_by('-date_created')
-	reviews = models.Review.objects.filter(user=request.user.id)
+	"""We collect all the users to whom the user is subscribed"""
+	users = []
+	users_follows = models.UserFollows.objects.filter(user=request.user)
+	for user in users_follows:
+		users.append(user.followed_user)
+	users.append(request.user)
+
+	"""we collect all the tickets of the users to whom we are subscribed"""
+	tickets = []
+	for user in users:
+		tickets_by_user = models.Ticket.objects.filter(author=user).order_by('-date_created')
+		for ticket in tickets_by_user:
+			tickets.append(ticket)
+
+	"""we collect all the tickets of the users to whom we are subscribed"""
+	tickets = sorted(tickets, key=lambda k: k.date_created, reverse=True)
+
+	"""we collect all the reveiws of the users to whom we are subscribed"""
+	reviews = []
+	for user in users:
+		review_by_user = models.Review.objects.filter(user=user).order_by('-time_created')
+		for review in review_by_user:
+			reviews.append(review)
+
+	"""we collect all the reviews of the users to whom we are subscribed"""
+	reviews = sorted(reviews, key=lambda k: k.time_created, reverse=True)
+
 	context = {'tickets': tickets, 'reviews': reviews, 'page_name': 'Posts'}
 	return render(request, 'application/posts.html', context)
 

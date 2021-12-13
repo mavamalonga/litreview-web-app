@@ -2,6 +2,10 @@ body {
   width: 1020px;
 }
 
+.page-title {
+  margin-left: 30%;
+}
+
 .container {
   border: solid;
   margin-left: 30%;
