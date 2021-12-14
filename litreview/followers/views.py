@@ -20,13 +20,17 @@ def follows(request):
 		if form.is_valid():
 			username = form.cleaned_data['username']
 			if username != f'{request.user}':
-				user = User.objects.get(id=request.user.id)
-				followed_user = User.objects.filter(username=username)[0]
-				if followed_user != None:
-					add_follower = models.UserFollows(user=user, followed_user=followed_user)
-					add_follower.save()
-				else:
-					return redirect ('follows')
+				try:
+					user = User.objects.get(id=request.user.id)
+					followed_user = User.objects.filter(username=username)[0]
+					if followed_user != None:
+						add_follower = models.UserFollows(user=user, followed_user=followed_user)
+						add_follower.save()
+					else:
+						return redirect ('follows')
+				except Exception as e:
+					form = forms.UserFollowsForm()
+					error = "Désolé ce compte utilisateur n'exsite pas"
 			else:
 				error = 'Désolé vous ne pouvez pas vous auto-abonné'
 	context = {'form': form, 'followers': followers,
