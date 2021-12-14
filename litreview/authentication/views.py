@@ -3,18 +3,17 @@ from django.shortcuts import render, redirect
 from authentication import forms
 from django.conf import settings
 
-def signup_page(request):
+def signup(request):
 	form = forms.SignUpForm()
 	if request.method == 'POST':
 		form = forms.SignUpForm(request.POST)
 		if form.is_valid():
 			user = form.save()
 			login(request, user)
-			# id: toto, pwd: Se3cret!
 			return redirect(settings.LOGIN_REDIRECT_URL)
 	return render(request, 'authentication/signup.html', {'form': form, 'page_name':None})
 
-def login_page(request):
+def login_user(request):
 	form = forms.LoginForm()
 	message = ''
 	if request.method == 'POST':
@@ -26,7 +25,7 @@ def login_page(request):
 			)
 			if user is not None:
 				login(request, user)
-				return redirect('home')
+				return redirect('flux')
 			else:
 				message = 'Identifiants invalides.'
 	return render(request, 'authentication/login.html', context={'form': form, 

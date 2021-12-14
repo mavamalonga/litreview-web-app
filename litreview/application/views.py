@@ -8,36 +8,41 @@ from application import forms
 from application import models
 from authentication.models import User
 
-@login_required
-def home(request):
+def get_users_flux(request):
 	"""We collect all the users to whom the user is subscribed"""
 	users = []
 	users_follows = models.UserFollows.objects.filter(user=request.user)
 	for user in users_follows:
 		users.append(user.followed_user)
 	users.append(request.user)
+	return users
 
+def get_tickets(request, users):
 	"""we collect all the tickets of the users to whom we are subscribed"""
 	tickets = []
 	for user in users:
 		tickets_by_user = models.Ticket.objects.filter(author=user)
 		for ticket in tickets_by_user:
 			tickets.append(ticket)
-
-	"""sorted tickets by time published"""
 	tickets = sorted(tickets, key=lambda k: k.date_created, reverse=True)
+	return tickets
 
+def get_reviews(request, users):
 	"""we collect all the reveiws of the users to whom we are subscribed"""
 	reviews = []
 	for user in users:
 		review_by_user = models.Review.objects.filter(user=user).order_by('-time_created')
 		for review in review_by_user:
 			reviews.append(review)
-
-	"""sorted reviews by time published"""
 	reviews = sorted(reviews, key=lambda k: k.time_created, reverse=True)
+	return reviews
 
-	# id: toto, pwd: Se3cret!
+
+@login_required
+def flux(request):
+	users = get_users_flux(request)
+	tickets = get_tickets(request, users)
+	reviews = get_reviews(request, users)
 	context = {'tickets': tickets, 'reviews': reviews, 'page_name':'Flux'}
 	return render(request, 'application/home.html', context)
 
@@ -56,7 +61,7 @@ def create_ticket(request):
 			ticket.author = request.user
 			ticket.photo = photo
 			ticket.save()
-			return redirect('home')
+			return redirect('flux')
 	context = {'ticket_form': ticket_form,
 		'photo_form': photo_form, 'page_name':'Créer un ticket'}
 	return render(request, 'application/create_ticket.html', context=context)
@@ -72,7 +77,7 @@ def review(request, ticket_id):
 			review.ticket = ticket
 			review.user = request.user
 			review.save()
-			return redirect('home')
+			return redirect('flux')
 	context = {'form': form, 'ticket':ticket, 'page_name':'Créer une critique'}
 	return render(request, 'application/review.html', context)
 
@@ -99,7 +104,7 @@ def create_review(request):
 			review.ticket = ticket
 			review.user = request.user
 			review.save()
-			return redirect('home')
+			return redirect('flux')
 	context = {'ticket_form': ticket_form, 'photo_form': photo_form,
 		'review_form': review_form, 'page_name':'Créer une critique (pas en réponse à un ticket)'}
 	return render(request, 'application/create_review.html', context=context)
