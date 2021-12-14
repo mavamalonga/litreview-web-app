@@ -47,6 +47,14 @@ def flux(request):
 	return render(request, 'application/home.html', context)
 
 @login_required
+def posts(request):
+	users = get_users_flux(request)
+	tickets = get_tickets(request, users)
+	reviews = get_reviews(request, users)
+	context = {'tickets': tickets, 'reviews': reviews, 'page_name': 'Posts'}
+	return render(request, 'application/posts.html', context)
+
+@login_required
 def create_ticket(request):
 	ticket_form = forms.TicketForm()
 	photo_form = forms.PhotoForm()
@@ -109,37 +117,6 @@ def create_review(request):
 		'review_form': review_form, 'page_name':'Créer une critique (pas en réponse à un ticket)'}
 	return render(request, 'application/create_review.html', context=context)
 
-@login_required
-def posts(request):
-	"""We collect all the users to whom the user is subscribed"""
-	users = []
-	users_follows = models.UserFollows.objects.filter(user=request.user)
-	for user in users_follows:
-		users.append(user.followed_user)
-	users.append(request.user)
-
-	"""we collect all the tickets of the users to whom we are subscribed"""
-	tickets = []
-	for user in users:
-		tickets_by_user = models.Ticket.objects.filter(author=user).order_by('-date_created')
-		for ticket in tickets_by_user:
-			tickets.append(ticket)
-
-	"""we collect all the tickets of the users to whom we are subscribed"""
-	tickets = sorted(tickets, key=lambda k: k.date_created, reverse=True)
-
-	"""we collect all the reveiws of the users to whom we are subscribed"""
-	reviews = []
-	for user in users:
-		review_by_user = models.Review.objects.filter(user=user).order_by('-time_created')
-		for review in review_by_user:
-			reviews.append(review)
-
-	"""we collect all the reviews of the users to whom we are subscribed"""
-	reviews = sorted(reviews, key=lambda k: k.time_created, reverse=True)
-
-	context = {'tickets': tickets, 'reviews': reviews, 'page_name': 'Posts'}
-	return render(request, 'application/posts.html', context)
 
 @login_required
 def ticket_update(request, ticket_id):

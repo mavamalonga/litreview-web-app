@@ -27,20 +27,16 @@
 			{% endif %}
 			{% for review in reviews %}
 				{% if review.ticket.id == ticket.id %}
-					<div class="review">
 						{% if review.user == request.user %}
+						<div class="review">
 							<p class="author">Vous avez posté une reveiw</p>
-						{% else %}
-							<p class="author">{{ review.user }} a posté une review</p>
-						{% endif %}
-						<p class="time-created">{{ review.time_created }}</p>
-						<p class="content">Note : {{ review.rating}}/5<br>{{ review.headline }}<br>{{ review.body }}</p>
-						{% if review.user == request.user %}
-						<div class="button">
-							<a href="{% url 'review-delete' review.id %}"><button>Supprimer</button></a>
+							<p class="time-created">{{ review.time_created }}</p>
+							<p class="content">Note : {{ review.rating}}/5<br>{{ review.headline }}<br>{{ review.body }}</p>
+							<div class="button">
+								<a href="{% url 'review-delete' review.id %}"><button>Supprimer</button></a>
+							</div>
 						</div>
 						{% endif %}
-					</div>
 				{% endif %}
 			{% endfor %}
 		{% endfor %}
