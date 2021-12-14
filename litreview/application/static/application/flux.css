@@ -15,6 +15,11 @@ body {
   margin-top: 2%;
 }
 
+.container .message {
+  margin-top: 10%;
+  margin-left: 45%;
+}
+
 .container .post, .container .review {
   border: solid;
   width: 600px;

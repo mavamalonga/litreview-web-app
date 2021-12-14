@@ -13,6 +13,12 @@ body {
   margin-left: 10%;
 }
 
+.container .message {
+  margin-top: 10%;
+  margin-left: 45%;
+}
+
+
 .container .post, .container .review {
   position: relative;
 }
