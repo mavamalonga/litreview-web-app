@@ -1,0 +1,54 @@
+body {
+  width: 1020px;
+}
+
+.container .post, .container .review {
+  border: solid;
+  width: 600px;
+  margin-top: 1%;
+  margin-left: 30%;
+}
+
+.container .review .author, .container .post p.author, .container .post .content {
+  margin-left: 10%;
+}
+
+.container .message {
+  margin-top: 10%;
+  margin-left: 45%;
+}
+
+
+.container .post, .container .review {
+  position: relative;
+}
+
+.container .post .button, .container .review a button {
+  position: absolute;
+  display: flex;
+  flex-direction: column;  top: 50%;
+  left: 65%;
+}
+
+.container .post .button a button, .container .review a button {
+  margin-top: 3px;
+  width: 150px;
+  height: 50px;
+}
+
+.container .review .time-created, .container .post p.date-created{
+  float: right;
+  margin-top: -5%;
+  margin-right: 10%;
+  margin-bottom: 10%;
+}
+
+.container .review .content {
+  margin-left: 10%;
+  width: 300px;
+}
+
+.container .post .content img {
+  width: 200px;
+  height: 285px;
+}
