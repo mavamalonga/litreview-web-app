@@ -19,8 +19,8 @@
 					</div>
 					{% if ticket.author == request.user %}
 						<div class="button">
-							<a href="{% url 'ticket-update' ticket.id %}" class="update"><button>Modifier</button></a>
-							<a href="{% url 'ticket-delete' ticket.id %}" class="delete"><button>Supprimer</button></a>
+							<a href="{% url 'update-ticket' ticket.id %}" class="update"><button>Modifier</button></a>
+							<a href="{% url 'delete-ticket' ticket.id %}" class="delete"><button>Supprimer</button></a>
 						</div>
 					{% endif %}
 				</div>
@@ -33,7 +33,7 @@
 							<p class="time-created">{{ review.time_created }}</p>
 							<p class="content">Note : {{ review.rating}}/5<br>{{ review.headline }}<br>{{ review.body }}</p>
 							<div class="button">
-								<a href="{% url 'review-delete' review.id %}"><button>Supprimer</button></a>
+								<a href="{% url 'delete-review' review.id %}"><button>Supprimer</button></a>
 							</div>
 						</div>
 						{% endif %}

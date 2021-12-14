@@ -4,7 +4,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'application/home.css' %}">
 	<div class="container">
 		<a href="{% url 'create-ticket' %}" class="btn-1"><button>Demander une critique</button></a>
-		<a href="{% url 'create-review' %}" class="btn-2"><button>Créer une critique
+		<a href="{% url 'create-ticket-review' %}" class="btn-2"><button>Créer une critique
 		</button></a>
 		{% for ticket in tickets %}
 			{% if ticket != None %}
@@ -20,7 +20,7 @@
 						<p>{{ ticket.content }}</p>
 						<img src="{{ ticket.photo.image.url }}">
 					</div>
-					<a href="{% url 'review' ticket.id %}"><button>Créer une critique</button></a>
+					<a href="{% url 'create-review' ticket.id %}"><button>Créer une critique</button></a>
 				</div>
 			{% endif %}
 			{% for review in reviews %}

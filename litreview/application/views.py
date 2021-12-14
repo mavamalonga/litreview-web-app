@@ -44,7 +44,7 @@ def flux(request):
 	tickets = get_tickets(request, users)
 	reviews = get_reviews(request, users)
 	context = {'tickets': tickets, 'reviews': reviews, 'page_name':'Flux'}
-	return render(request, 'application/home.html', context)
+	return render(request, 'application/flux.html', context)
 
 @login_required
 def posts(request):
@@ -75,22 +75,7 @@ def create_ticket(request):
 	return render(request, 'application/create_ticket.html', context=context)
 
 @login_required
-def review(request, ticket_id):
-	ticket = models.Ticket.objects.get(id=ticket_id)
-	form = forms.ReviewForm()
-	if request.method == 'POST':
-		form = forms.ReviewForm(request.POST)
-		if form.is_valid():
-			review = form.save(commit=False)
-			review.ticket = ticket
-			review.user = request.user
-			review.save()
-			return redirect('flux')
-	context = {'form': form, 'ticket':ticket, 'page_name':'Créer une critique'}
-	return render(request, 'application/review.html', context)
-
-@login_required
-def create_review(request):
+def create_ticket_and_review(request):
 	ticket_form = forms.TicketForm()
 	photo_form = forms.PhotoForm()
 	review_form = forms.ReviewForm()
@@ -115,11 +100,10 @@ def create_review(request):
 			return redirect('flux')
 	context = {'ticket_form': ticket_form, 'photo_form': photo_form,
 		'review_form': review_form, 'page_name':'Créer une critique (pas en réponse à un ticket)'}
-	return render(request, 'application/create_review.html', context=context)
-
+	return render(request, 'application/create_ticket_and_review.html', context=context)
 
 @login_required
-def ticket_update(request, ticket_id):
+def update_ticket(request, ticket_id):
 	ticket = models.Ticket.objects.get(id=ticket_id)
 	ticket_form = forms.TicketForm(instance=ticket)
 	photo_form = forms.PhotoForm(instance=ticket.photo)
@@ -137,15 +121,30 @@ def ticket_update(request, ticket_id):
 			return redirect('posts')
 	context = {'ticket_form': ticket_form, 'photo_form':photo_form,
 		'page_name':'Ticket update'}
-	return render(request, 'application/ticket_update.html', context)
+	return render(request, 'application/update_ticket.html', context)
 
 @login_required
-def ticket_delete(request, ticket_id):
+def delete_ticket(request, ticket_id):
 	ticket = models.Ticket.objects.get(id=ticket_id)
 	ticket.delete()
 	return redirect('posts')
 
-def review_delete(request, review_id):
+@login_required
+def create_review(request, ticket_id):
+	ticket = models.Ticket.objects.get(id=ticket_id)
+	form = forms.ReviewForm()
+	if request.method == 'POST':
+		form = forms.ReviewForm(request.POST)
+		if form.is_valid():
+			review = form.save(commit=False)
+			review.ticket = ticket
+			review.user = request.user
+			review.save()
+			return redirect('flux')
+	context = {'form': form, 'ticket':ticket, 'page_name':'Créer une critique'}
+	return render(request, 'application/create_review.html', context)
+
+def delete_review(request, review_id):
 	review = models.Review.objects.get(id=review_id)
 	review.delete()
 	return redirect('posts')
