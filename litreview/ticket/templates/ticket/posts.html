@@ -3,8 +3,8 @@
 {% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'ticket/posts.css' %}">
 	<div class="container">
-		{% if posts|length == 0 %}
-				<p class="message">Vous n'avez pas encore de publications</p>
+		{% if message != None %}
+				<p class="message">{{ message }}</p>
 		{% else %}
 			{% for post in posts %}
 				{% if post.author == request.user %}

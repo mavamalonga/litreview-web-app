@@ -65,8 +65,24 @@ def posts(request):
 	tickets = get_tickets(request, users)
 	reviews = get_reviews(request, users)
 	posts = sorted_posts(request, tickets, reviews)
-	print(posts)
-	context = {'posts': posts, 'page_name': 'Posts'}
+	message = "Vous n'avez pas encore de publications"
+	for post in posts:
+		try:
+			print("111111111111")
+			if post.user == request.user:
+				message = None
+		except Exception as e:
+			pass
+
+		try:
+			print("222222222222")
+			if post.author == request.user:
+				message = None
+		except Exception as e:
+			pass
+	print(message)
+			
+	context = {'posts': posts, 'message': message, 'page_name': 'Posts'}
 	return render(request, 'ticket/posts.html', context)
 
 @login_required
