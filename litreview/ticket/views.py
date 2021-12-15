@@ -29,7 +29,7 @@ def get_tickets(request, users):
 		tickets_by_user = models.Ticket.objects.filter(author=user)
 		for ticket in tickets_by_user:
 			tickets.append(ticket)
-	tickets = sorted(tickets, key=lambda k: k.date_created, reverse=True)
+	tickets = sorted(tickets, key=lambda k: k.time_created, reverse=True)
 	return tickets
 
 def get_reviews(request, users):
@@ -42,6 +42,14 @@ def get_reviews(request, users):
 	reviews = sorted(reviews, key=lambda k: k.time_created, reverse=True)
 	return reviews
 
+def sorted_posts(request, tickets, reviews):
+	posts = []
+	for ticket in tickets:
+		posts.append(ticket)
+	for review in reviews:
+		posts.append(review)
+	posts = sorted(posts, key=lambda k:k.time_created, reverse=True)
+	return posts
 
 @login_required
 def flux(request):
@@ -56,7 +64,9 @@ def posts(request):
 	users = get_users(request)
 	tickets = get_tickets(request, users)
 	reviews = get_reviews(request, users)
-	context = {'tickets': tickets, 'reviews': reviews, 'page_name': 'Posts'}
+	posts = sorted_posts(request, tickets, reviews)
+	print(posts)
+	context = {'posts': posts, 'page_name': 'Posts'}
 	return render(request, 'ticket/posts.html', context)
 
 @login_required

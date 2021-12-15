@@ -1,0 +1,28 @@
+.page-name {
+	margin-left: 50px;
+}
+.header {
+	width: 1250px;
+	height: 50px;
+	position: relative;
+	border-top: solid;
+	border-bottom: solid;
+}
+.header h1 {
+	position: absolute;
+	top: -10px;
+}
+.header nav {
+	position: absolute;
+	display: inline-flex;
+	top: 30%;
+	left: 70%;
+}
+
+.header nav p {
+	margin: 5px;
+}
+
+.header nav p a {
+	text-decoration: none;
+}
