@@ -44,3 +44,7 @@
   left: 81%;
   bottom: 5%;
 }
+
+.container .errorlist {
+  color: red;
+}

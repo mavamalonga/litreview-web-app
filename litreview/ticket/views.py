@@ -68,14 +68,12 @@ def posts(request):
 	message = "Vous n'avez pas encore de publications"
 	for post in posts:
 		try:
-			print("111111111111")
 			if post.user == request.user:
 				message = None
 		except Exception as e:
 			pass
 
 		try:
-			print("222222222222")
 			if post.author == request.user:
 				message = None
 		except Exception as e:
