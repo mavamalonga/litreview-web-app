@@ -11,10 +11,11 @@
 	<article>
 		<ul>
 			<li>Système d'authentification</li>
-			<li>Publier une critique et joindre un fichier avec le post</li> 
-			<li>Poster une critique sur un post de son flux d'actualité</li>
+			<li>Publier une critique</li> 
+			<li>Consulter son flux d'actualité</li>
+			<li>Répondre à une critique</li>
 			<li>Supprimer ou modifier un post</li>
-			<li>Système d'abonnement à d'autres comptes utilisteurs</li>
+			<li>Système d'abonnement</li>
 			...
 		</ul>
 	</article>
@@ -25,6 +26,7 @@
 	<article>
 		<ul>
 			<li><code>git clone https://github.com/mavamalonga/litreview-web-app.git</code></li>
+			<li><code>cd litreview-web-app</code></li>
 			<li><code>python -m venv env</code></li>
 			<li><code>env\Scripts\activate.bat</code></li>
 			<li><code>pip install -r requirements.txt</code></li>
@@ -32,8 +34,7 @@
 	</article>
 	<h3>Exécution</h3>
 	<ul>
-		<li>Se déplacer dans le répertoire racine epic-events <code>cd litreview</code></li>
-		<li>Lancer le serveur django <code>python manage.py runserver</code></li>
+		<li><code>python manage.py runserver</code></li>
 	</ul>
 	<p>Les données du programme seront sauvegardés dans un fichier sqlite.db dans le repertoire principal.</p>
 	<p>Pour toute autre question, contactez moi à l'adresse suivante : mavamalonga.alpha@gmail.com</p>
