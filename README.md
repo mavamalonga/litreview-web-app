@@ -1,58 +1,57 @@
-<header>
-<h1>Présentaion</h1>
-<p>LITReview est un site web qui permet a ses utilisateurs de consulter ou de solliciter une critique de livres à la demande</p>
-</header>
-
+<!DOCTYPE html>
+<html>
+<head>
+</head>
 <body>
-<section>
-<h2>Fonctionnement</h2>
-
-<p>Pour intéragir avec le site web, l'utilisateur doit se créer un compte personnel avec une adresse mail et mot de passe.<br>A chaque connexion au site l'utilisateur doit saisir ses identifiant afin d'acceder à son compte.<br>
-utilisateur peut poster des critiques ou répondre aux publications d'autres membres de la 
-communauté.<br>
-Un système d'abonnement permet de suivre d'autres membres de la communauté ainsi pouvoir réagir à leurs publications.
-</p>
-<article>
+	<h1>LITReview</h1>
+	<p>
+		LITReview est un site web qui permet a ses utilisateurs de consulter ou de solliciter une critique de livres Ã  la demande.
+	</p>
+	<h2>ExÃ©cution</h2>
 	<ul>
-		<li>Système d'authentification</li>
-		<li>Publier une critique (joindre un fichier avec le post)</li> 
-		<li>Poster une critique sur un post de son flux d'actualité</li>
-		<li>Supprimer ou modifier un post</li>
-		<li>Système d'abonnement (suivre d'autres utilisteurs)</li>
-		...
+		<li>Se dÃ©placer dans le rÃ©pertoire racine epic-events <code>cd litreview</code></li>
+		<li>Lancer le serveur django <code>python manage.py runserver</code></li>
 	</ul>
-</article>
-</section>
-<section>
-<h3>Installation</h3>
-<p>
-Assurez vous d'avoir installé en local le gestionnaire de version git et le gestionnaire de paquets python pip. <br>Ouvrez le terminal git et, suivez les étapes ci-dessous.<br>
-</p>
-<article>
-	<ul>
-		<li>Initialise le répertoire courant avec la commande<br> 
-			<mark>git init</mark></li>
-		<li>Clonez le respository github en local <br>
-			<mark>git clone https://github.com/mavamalonga/litreview-web-app.git</mark>
-		<li>Placez vous dans le répertoire principal du projet et, créez un environnement virtuel
-			<br><mark>python -m venv env</mark></li>
-		<li>Lancez l'environnement virtuel<br>
-			<mark>env\Scripts\activate.bat</mark></li>
-		<li>Installez les paquets python avec le gestionnaire de paquets pip<br>
-			<mark>pip install -r requirements.txt</mark></li>
-		<li>Lancez les migrations de la database avec les commandes suivantes : <br>
-			<mark>python manage.py makemigrations</mark><br>
-			<mark><mark>python manage.py migrate</mark></mark></li>
-		<li>Enfin lancez le programme en activant le serveur local avec le fichier manage.py<br>
-			<mark>py manage.py runserver</mark></li>
-	</ul>
-<p>
-Les données du programme seront sauvegardés dans un fichier sqlite.db dans le repertoire principal.
-</p>
-
-<p>
-Pour toute autre question, contactez moi à l'adresse suivante : mavamalonga.alpha@gmail.com
-</p>
-</article>
-</section>
+	<h3>Fonctionnement</h3>
+	<p>Pour intï¿½ragir avec le site web, l'utilisateur doit se crï¿½er un compte personnel avec une adresse mail et mot de passe.<br>A chaque connexion au site l'utilisateur doit saisir ses identifiant afin d'acceder ï¿½ son compte.<br>
+	utilisateur peut poster des critiques ou rï¿½pondre aux publications d'autres membres de la 
+	communautï¿½.<br>
+	Un systï¿½me d'abonnement permet de suivre d'autres membres de la communautï¿½ ainsi pouvoir rï¿½agir ï¿½ leurs publications.
+	</p>
+	<article>
+		<ul>
+			<li>Systï¿½me d'authentification</li>
+			<li>Publier une critique (joindre un fichier avec le post)</li> 
+			<li>Poster une critique sur un post de son flux d'actualitï¿½</li>
+			<li>Supprimer ou modifier un post</li>
+			<li>Systï¿½me d'abonnement (suivre d'autres utilisteurs)</li>
+			...
+		</ul>
+	</article>
+	<h3>Installation</h3>
+	<p>
+	Assurez vous d'avoir installï¿½ le gestionnaire de version git et le gestionnaire de paquets python pip. <br>Ouvrez le terminal git et, suivez les ï¿½tapes ci-dessous.<br>
+	</p>
+	<article>
+		<ul>
+			<li>Initialise le rï¿½pertoire courant avec la commande<br> 
+				<mark>git init</mark></li>
+			<li>Clonez le respository github en local <br>
+				<mark>git clone https://github.com/mavamalonga/litreview-web-app.git</mark>
+			<li>Placez vous dans le rï¿½pertoire principal du projet et, crï¿½ez un environnement virtuel
+				<br><mark>python -m venv env</mark></li>
+			<li>Lancez l'environnement virtuel<br>
+				<mark>env\Scripts\activate.bat</mark></li>
+			<li>Installez les paquets python avec le gestionnaire de paquets pip<br>
+				<mark>pip install -r requirements.txt</mark></li>
+			<li>Lancez les migrations de la database avec les commandes suivantes : <br>
+				<mark>python manage.py makemigrations</mark><br>
+				<mark><mark>python manage.py migrate</mark></mark></li>
+			<li>Enfin lancez le programme en activant le serveur local avec le fichier manage.py<br>
+				<mark>py manage.py runserver</mark></li>
+		</ul>
+	<p>Les donnï¿½es du programme seront sauvegardï¿½s dans un fichier sqlite.db dans le repertoire principal.</p>
+	<p>Pour toute autre question, contactez moi ï¿½ l'adresse suivante : mavamalonga.alpha@gmail.com</p>
+	</article>
 </body>
+</html>
